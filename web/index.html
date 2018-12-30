@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Secret Hitler</title>
+
+<style type="text/css">
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+p {
+	text-indent: 10px;
+}
+
+.content {
+	padding: 8px;
+}
+
+#footer {
+	margin-top: 2em;
+	border-top: 1px black solid;
+}
+
+
+
+</style>
+
+</style>
+
+</head>
+<body>
+
+
+<div id="header" class="content">
+	<h1>Secret Hitler</h1>
+	<p>A crude online verion of <a href="https://secrethitler.com/">the Secret Hitler</a> board game. </p>
+</div>
+
+<div id="start-container" class="content">
+	<h2>Play</h2>
+	<p>Play by joining a lobby or starting your own</p>
+
+	<h3> Join </h3>
+	<p>
+		<label>Enter lobby ID:
+			<input type="text">
+		</label>
+		<input type="submit" value="Join">
+	</p>
+
+	<h3> Create </h3>
+	<p>
+		<label> Private?
+			<input type="radio" name="private">
+		</label>
+		<input type="submit" value="Create">
+	</p>
+</div>
+
+<div id="game-container" class="content" style="display: none;">
+	<p>let's begin</p>
+</div>
+
+<div id="footer" class="content">
+	<p> Secret Hitler is (<i>thankfully</i>) licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons 4.0 </a></p>
+</div>
+
+<script type="text/javascript">
+
+function join(ev) {
+
+	const reqPath = "/api/lobby"
+	
+	fetch(reqPath, { method: "GET" })
+		.then(data => {
+			if (data.status != 200) {
+				throw new Error(`fetch ${reqPath}: bad response ${data.status}`)
+			}
+			new Lobby(data.json())
+		})
+		.catch(console.error)
+}
+
+function create(ev) {
+
+}
+
+</script>
+
+</body>
+</html>
