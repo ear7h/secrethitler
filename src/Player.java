@@ -1,40 +1,48 @@
-public Player {
+import java.util.Random;
+import java.security.SecureRandom;
+
+public class Player {
   public enum Party {
     Facist, Liberal, Spectator
   }
 
-  private static boolean hitlerExists = false;
-
-  public static Player newHitler(String name) {
-    if (hitlerExists) {
-      throw new RuntimeException("hitler already exists")
-    }
-
-
-    Player ret = new Player(name, Party.Facist);
-    ret.isHitlerVar = true;
-    Player.hitlerExists = true;
-
-    return ret;
+  /**
+   * Explicitly make hitler
+   */
+  public static Player newHitler( String name ) {
+    return new Player( name, Party.Facist, true );
   }
 
-  private boolean isHitlerVar = false;
-  private Party party = null;
+  /* instance vars */
+  private final boolean isHitlerVar;
+  private final Party party;
+  private final String name;
 
-  public Player(String name, Party party) {
+  public Player( String name, Party party ) {
     // set values
-    setName(name);
-    setParty(party);
-  }
-
-  private void setName(String name) {
     this.name = name;
+    this.party = party;
+    this.isHitlerVar = false;
   }
 
-  private void setParty() {}
-
-  public void setHitler(boolean isHitler) {
+  /**
+   * The only way to make Hitler, and it's private forcing
+   * use of the above static method.
+   */
+  private Player( String name, Party party, boolean isHitler ) {
+    // set values
+    this.name = name;
+    this.party = party;
     this.isHitlerVar = isHitler;
+  }
+
+
+  public String getName() {
+    return this.name;
+  }
+
+  public Party getParty() {
+    return this.party;
   }
 
   public boolean isHitler() {
